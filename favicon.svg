@@ -1,1 +1,6 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='#10b981'/><text x='50' y='60' text-anchor='middle' font-size='48' fill='#0b1220' font-family='Arial'>J</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+  <rect width="128" height="128" rx="24" fill="#0b1220"/>
+  <circle cx="64" cy="64" r="40" fill="url(#g)"/>
+  <text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="44" text-anchor="middle" fill="#0b1220" font-weight="800">JD</text>
+</svg>

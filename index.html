@@ -4,85 +4,80 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JD Evaluation AI</title>
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
-  <!-- Libraries for browser: Mammoth for .docx reading, SheetJS for Excel -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Libs cho đọc DOCX & Excel -->
   <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
   <header class="container">
     <h1>JD Evaluation AI</h1>
-    <p class="subtitle">Đánh giá mô tả công việc theo 12 yếu tố – chạy thẳng trên GitHub Pages (không cần build)</p>
+    <p class="subtitle">Đánh giá mô tả công việc theo 12 yếu tố – chạy thẳng trên GitHub Pages</p>
   </header>
 
   <main class="container">
     <nav class="tabs">
-      <button class="tab active" data-tab="evaluation">Đánh giá giá trị công việc</button>
-      <button class="tab" data-tab="sgrade">Tra cứu S‑Grade</button>
+      <button class="tab active" data-tab="panel-eval">Đánh giá giá trị công việc</button>
+      <button class="tab" data-tab="panel-sgrade">Tra cứu S-Grade</button>
     </nav>
 
-    <section id="evaluation" class="tab-panel active">
+    <!-- Panel: Evaluate -->
+    <section id="panel-eval" class="tab-panel active">
       <div class="card">
         <div class="field">
-          <label class="label">API key (Gemini) – tùy chọn</label>
-          <input id="apiKey" type="password" placeholder="Nhập API key để gọi AI (không bắt buộc)">
-          <small class="hint">Để an toàn, KHÔNG commit API key vào repo. Bạn chỉ dán tạm khi chạy.</small>
+          <label for="jobTitle"><span class="pill">abc</span> Nhập tên vị trí công việc</label>
+          <input id="jobTitle" type="text" placeholder="e.g., Deputy Sorting Centers Manager" />
         </div>
 
         <div class="field">
-          <label class="label">Tên vị trí công việc</label>
-          <input id="jobTitle" type="text" placeholder="Ví dụ: Deputy Sorting Centers Manager">
-        </div>
-
-        <div class="field">
-          <label class="label">Tải JD (.docx hoặc .txt)</label>
-          <input id="jdFile" type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt">
-          <div id="fileInfo" class="muted mt8"></div>
+          <label><span class="pill pill-green">docx</span> Tải lên JD (.docx, .txt)</label>
+          <div id="dropzone" class="dropzone" tabindex="0">
+            <div class="dz-icon">📄</div>
+            <p><b>Click to upload</b> or drag and drop</p>
+            <p class="muted">DOCX or TXT (max 200MB)</p>
+            <input id="jdFile" type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt" hidden />
+          </div>
+          <div id="fileInfo" class="muted mt-6"></div>
         </div>
 
         <div class="actions">
-          <button id="btnEvaluate" class="btn primary">Đánh giá JD</button>
-          <button id="btnReset" class="btn">Xóa nội dung</button>
+          <button id="btnEvaluate" class="btn">Đánh giá JD</button>
         </div>
       </div>
 
-      <div id="panelResult" class="card mt16 hidden">
-        <div id="resultHeader" class="result-header"></div>
-        <div id="resultBody"></div>
+      <div id="panelResult" class="card hidden">
+        <div id="resultHeader"></div>
+        <div id="resultBody" class="mt-12"></div>
       </div>
     </section>
 
-    <section id="sgrade" class="tab-panel">
+    <!-- Panel: S-Grade -->
+    <section id="panel-sgrade" class="tab-panel">
       <div class="card">
-        <div class="row">
-          <div class="field grow">
-            <label class="label">Tìm kiếm</label>
-            <input id="searchInput" type="text" placeholder="Nhập tên/mã vị trí…">
+        <div class="toolbar">
+          <div class="filters">
+            <label>
+              Mã/Tên vị trí
+              <input id="searchInput" type="text" placeholder="Nhập mã/tên vị trí..." />
+            </label>
+            <label>
+              Cấp bậc
+              <select id="rankFilter"><option value="all">Tất cả</option></select>
+            </label>
           </div>
-          <div class="field">
-            <label class="label">Cấp bậc</label>
-            <select id="rankFilter">
-              <option value="all">Tất cả</option>
-            </select>
+          <div class="toolbuttons">
+            <button id="btnDownloadTemplate" class="btn btn-ghost">Tải file mẫu</button>
+            <button id="btnImportExcel" class="btn">Nhập Excel</button>
+            <input id="excelImport" type="file" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
+            <button id="btnExportExcel" class="btn btn-ghost">Xuất Excel</button>
           </div>
         </div>
 
-        <div class="row mt8">
-          <button id="btnDownloadTemplate" class="btn">Tải file mẫu</button>
-          <input id="excelImport" type="file" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="hidden">
-          <button id="btnImportExcel" class="btn success">Nhập Excel</button>
-          <button id="btnExportExcel" class="btn">Xuất Excel</button>
-        </div>
-        <div id="importMsg" class="muted mt8"></div>
-      </div>
+        <div id="importMsg" class="muted mt-6"></div>
 
-      <div class="card mt16">
-        <div class="table-wrap">
-          <table class="table" id="sTable">
+        <div class="table-wrap mt-12">
+          <table class="table">
             <thead>
               <tr>
                 <th>Tên vị trí</th>
@@ -91,9 +86,7 @@
                 <th>Cấp bậc</th>
               </tr>
             </thead>
-            <tbody id="sTableBody">
-              <tr><td colspan="4" class="muted center">Đang tải dữ liệu…</td></tr>
-            </tbody>
+            <tbody id="sTableBody"></tbody>
           </table>
         </div>
       </div>
@@ -104,6 +97,6 @@
     <p>© <span id="y"></span> JD Evaluation AI. All rights reserved.</p>
   </footer>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
