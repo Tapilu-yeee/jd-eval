@@ -4,27 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JD Evaluation & S-Grade</title>
-  <link rel="stylesheet" href="style.css?v=1" />
+  <link rel="stylesheet" href="style.css?v=4" />
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 </head>
 <body>
-  <h1>JD Evaluation & Tra cứu S-Grade</h1>
+  <header class="site-header">
+    <h1>JD Evaluation AI</h1>
+    <p class="site-sub">Đánh giá mô tả công việc theo 12 yếu tố – chạy thẳng trên GitHub Pages</p>
+  </header>
+
   <div class="tabs">
-    <button class="tab-button active" onclick="openTab(event, 'tab1')">JD Evaluation</button>
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">Đánh giá giá trị công việc</button>
     <button class="tab-button" onclick="openTab(event, 'tab2')">Tra cứu S-Grade</button>
   </div>
 
-  <div id="tab1" class="tab-content" style="display:block;">
-    <input type="file" id="fileInput" accept=".docx,.txt" />
-    <button onclick="processFile()">Đánh giá JD</button>
-    <div id="result"></div>
-  </div>
+  <section id="tab1" class="tab-content" style="display:block;">
+    <div class="hero">
+      <div class="hero-icon" aria-hidden="true">📄</div>
+      <div class="hero-copy">
+        <h2 class="hero-title">Đánh giá mô tả công việc theo 12 yếu tố PwC</h2>
+        <p class="hero-sub">Hãy tải lên file mô tả công việc để được hệ thống đánh giá tự động.</p>
+      </div>
+    </div>
 
-  <div id="tab2" class="tab-content">
-    <button onclick="exportSGrade()">Xuất Excel</button>
-    <input type="file" id="importSGradeFile" accept=".xlsx" onchange="importSGrade(event)" />
-    <table id="sgradeTable"></table>
-  </div>
+    <div class="card">
+      <div class="grid-2">
+        <div>
+          <label class="label" for="jobTitle">Tên vị trí công việc</label>
+          <input id="jobTitle" class="input" placeholder="e.g., Deputy Sorting Centers Manager" />
+        </div>
+        <div>
+          <label class="label" for="fileInput">Tải lên JD (.docx hoặc .txt)</label>
+          <input type="file" id="fileInput" accept=".docx,.txt" />
+        </div>
+      </div>
 
-  <script src="script.js?v=1"></script>
+      <div class="actions">
+        <button class="btn primary" onclick="evaluateJD()">Đánh giá JD</button>
+        <button class="btn ghost" onclick="clearJD()">Xóa nội dung</button>
+      </div>
+    </div>
+
+    <div id="similarBox" class="card" style="display:none">
+      <h3 class="box-title">JD tương đồng (từ lịch sử)</h3>
+      <div id="similarList" class="similar-list"></div>
+    </div>
+
+    <div id="result" class="result"></div>
+  </section>
+
+  <section id="tab2" class="tab-content">
+    <div class="card">
+      <div class="card-actions">
+        <button class="btn" onclick="exportSGrade()">Xuất Excel</button>
+        <label class="btn">
+          Nhập S-Grade (Excel)
+          <input type="file" id="importSGradeFile" accept=".xlsx" onchange="importSGrade(event)" hidden />
+        </label>
+      </div>
+      <div class="table-wrap">
+        <table id="sgradeTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">© 2025 JD Evaluation AI • All rights reserved.</footer>
+
+  <script id="pwcPrompt" type="text/plain">
+DÁN NỘI DUNG pwc_prompt.txt VÀO ĐÂY
+  </script>
+
+  <script src="script.js?v=4"></script>
 </body>
 </html>
