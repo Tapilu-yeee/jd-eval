@@ -5,7 +5,7 @@
 ================================== */
 
 // === CẤU HÌNH API GEMINI Ở ĐÂY (thay bằng link API của bạn lấy ở Google AI Studio) ===
-const GEMINI_API_URL = "YAIzaSyD9fDIYcMI_juMCXsoz8StSTOSvPUPid1w";
+const GEMINI_API_URL = "AIzaSyD9fDIYcMI_juMCXsoz8StSTOSvPUPid1w";
 
 // State
 let uploadedText = "";
