@@ -1,102 +1,30 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JD Evaluation AI</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="stylesheet" href="style.css" />
-  <!-- Libs cho đọc DOCX & Excel -->
-  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JD Evaluation & S-Grade</title>
+  <link rel="stylesheet" href="style.css?v=1" />
 </head>
 <body>
-  <header class="container">
-    <h1>JD Evaluation AI</h1>
-    <p class="subtitle">Đánh giá mô tả công việc theo 12 yếu tố – chạy thẳng trên GitHub Pages</p>
-  </header>
+  <h1>JD Evaluation & Tra cứu S-Grade</h1>
+  <div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab1')">JD Evaluation</button>
+    <button class="tab-button" onclick="openTab(event, 'tab2')">Tra cứu S-Grade</button>
+  </div>
 
-  <main class="container">
-    <nav class="tabs">
-      <button class="tab active" data-tab="panel-eval">Đánh giá giá trị công việc</button>
-      <button class="tab" data-tab="panel-sgrade">Tra cứu S-Grade</button>
-    </nav>
+  <div id="tab1" class="tab-content" style="display:block;">
+    <input type="file" id="fileInput" accept=".docx,.txt" />
+    <button onclick="processFile()">Đánh giá JD</button>
+    <div id="result"></div>
+  </div>
 
-    <!-- Panel: Evaluate -->
-    <section id="panel-eval" class="tab-panel active">
-      <div class="card">
-        <div class="field">
-          <label for="jobTitle"><span class="pill">abc</span> Nhập tên vị trí công việc</label>
-          <input id="jobTitle" type="text" placeholder="e.g., Deputy Sorting Centers Manager" />
-        </div>
+  <div id="tab2" class="tab-content">
+    <button onclick="exportSGrade()">Xuất Excel</button>
+    <input type="file" id="importSGradeFile" accept=".xlsx" onchange="importSGrade(event)" />
+    <table id="sgradeTable"></table>
+  </div>
 
-        <div class="field">
-          <label><span class="pill pill-green">docx</span> Tải lên JD (.docx, .txt)</label>
-          <div id="dropzone" class="dropzone" tabindex="0">
-            <div class="dz-icon">📄</div>
-            <p><b>Click to upload</b> or drag and drop</p>
-            <p class="muted">DOCX or TXT (max 200MB)</p>
-            <input id="jdFile" type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt" hidden />
-          </div>
-          <div id="fileInfo" class="muted mt-6"></div>
-        </div>
-
-        <div class="actions">
-          <button id="btnEvaluate" class="btn">Đánh giá JD</button>
-        </div>
-      </div>
-
-      <div id="panelResult" class="card hidden">
-        <div id="resultHeader"></div>
-        <div id="resultBody" class="mt-12"></div>
-      </div>
-    </section>
-
-    <!-- Panel: S-Grade -->
-    <section id="panel-sgrade" class="tab-panel">
-      <div class="card">
-        <div class="toolbar">
-          <div class="filters">
-            <label>
-              Mã/Tên vị trí
-              <input id="searchInput" type="text" placeholder="Nhập mã/tên vị trí..." />
-            </label>
-            <label>
-              Cấp bậc
-              <select id="rankFilter"><option value="all">Tất cả</option></select>
-            </label>
-          </div>
-          <div class="toolbuttons">
-            <button id="btnDownloadTemplate" class="btn btn-ghost">Tải file mẫu</button>
-            <button id="btnImportExcel" class="btn">Nhập Excel</button>
-            <input id="excelImport" type="file" accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
-            <button id="btnExportExcel" class="btn btn-ghost">Xuất Excel</button>
-          </div>
-        </div>
-
-        <div id="importMsg" class="muted mt-6"></div>
-
-        <div class="table-wrap mt-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Tên vị trí</th>
-                <th>Tên Tiếng Việt</th>
-                <th>Loại vị trí</th>
-                <th>Cấp bậc</th>
-              </tr>
-            </thead>
-            <tbody id="sTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="container footer">
-    <p>© <span id="y"></span> JD Evaluation AI. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
+  <script src="script.js?v=1"></script>
 </body>
 </html>

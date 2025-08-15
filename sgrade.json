@@ -1,4 +1,4 @@
 [
-  {"positionName":"Sample Position","vietnameseName":"Vị Trí Mẫu","positionType":"Indirect","rank":"S7"},
-  {"positionName":"Junior Accountant","vietnameseName":"Kế toán viên","positionType":"Indirect","rank":"S3"}
+  { "positionName": "Backend Lead Engineer", "vietnameseName": "Trưởng nhóm Backend", "positionType": "Tech", "rank": "S5" },
+  { "positionName": "Frontend Engineer", "vietnameseName": "Kỹ sư Frontend", "positionType": "Tech", "rank": "S3" }
 ]
