@@ -1,0 +1,20 @@
+[
+  {
+    "positionName": "Sample Position",
+    "vietnameseName": "Vị Trí Mẫu",
+    "positionType": "Indirect",
+    "rank": "S7"
+  },
+  {
+    "positionName": "Operations Supervisor",
+    "vietnameseName": "Giám Sát Vận Hành",
+    "positionType": "Direct",
+    "rank": "S5"
+  },
+  {
+    "positionName": "Sorting Center Manager",
+    "vietnameseName": "Quản Lý Trung Tâm Phân Loại",
+    "positionType": "Indirect",
+    "rank": "S8"
+  }
+]
