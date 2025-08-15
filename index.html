@@ -2,78 +2,131 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JD Evaluation & S-Grade</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JD Evaluation AI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            body: '#0b1220',
+            card: '#111827',
+            line: '#374151'
+          },
+          fontFamily: {
+            mont: ['Montserrat','ui-sans-serif','system-ui']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css?v=7"/>
   <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 </head>
-<body>
-  <header class="site-header">
-    <h1>JD Evaluation AI</h1>
-    <p class="site-sub">Đánh giá mô tả công việc theo 12 yếu tố – chạy thẳng trên GitHub Pages</p>
+<body class="bg-body text-gray-300 font-mont min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="container mx-auto px-5 pt-8 pb-4">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">JD Evaluation AI</h1>
+    <p class="text-sm md:text-base text-gray-400 mt-1">Đánh giá mô tả công việc theo 12 yếu tố – chạy thẳng trên GitHub Pages</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab-button active" onclick="openTab(event, 'tab1')">Đánh giá giá trị công việc</button>
-    <button class="tab-button" onclick="openTab(event, 'tab2')">Tra cứu S-Grade</button>
+  <!-- Tabs -->
+  <div class="container mx-auto px-5">
+    <div class="border-b border-gray-700 flex gap-2">
+      <button class="tab-btn active" data-tab="evaluate">Đánh giá giá trị công việc</button>
+      <button class="tab-btn" data-tab="sgrade">Tra cứu S-Grade</button>
+    </div>
   </div>
 
-  <section id="tab1" class="tab-content" style="display:block;">
-    <div class="hero">
-      <div class="hero-icon" aria-hidden="true">📄</div>
-      <div class="hero-copy">
-        <h2 class="hero-title">Đánh giá mô tả công việc theo 12 yếu tố PwC</h2>
-        <p class="hero-sub">Hãy tải lên file mô tả công việc để được hệ thống đánh giá tự động.</p>
+  <!-- Evaluate tab -->
+  <main id="tab-evaluate" class="container mx-auto px-5 py-6 flex-1">
+    <!-- Hero -->
+    <div class="bg-card border border-gray-700 rounded-2xl p-6 md:p-7 mb-6 flex items-start gap-4">
+      <div class="text-4xl md:text-5xl">📋</div>
+      <div>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-400 tracking-tight">Đánh giá mô tả công việc theo 12 yếu tố PwC</h2>
+        <p class="text-gray-400 mt-1">Hãy tải lên file mô tả công việc để được hệ thống đánh giá tự động.</p>
       </div>
     </div>
 
-    <div class="card">
-      <div class="grid-2">
+    <!-- Form card -->
+    <section class="bg-card border border-gray-700 rounded-2xl p-6 md:p-7 space-y-6">
+      <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <label class="label" for="jobTitle">Tên vị trí công việc</label>
-          <input id="jobTitle" class="input" placeholder="e.g., Deputy Sorting Centers Manager" />
+          <label for="jobTitle" class="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-2">
+            <span class="text-blue-300 font-mono text-xs bg-blue-900/50 px-2 py-1 rounded">abc</span>
+            Nhập tên vị trí công việc
+          </label>
+          <input id="jobTitle" type="text" placeholder="e.g., Deputy Sorting Centers Manager"
+                 class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"/>
         </div>
         <div>
-          <label class="label" for="fileInput">Tải lên JD (.docx hoặc .txt)</label>
-          <input type="file" id="fileInput" accept=".docx,.txt" />
+          <label class="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-2">
+            <span class="text-emerald-300 font-mono text-xs bg-emerald-900/50 px-2 py-1 rounded">docx</span>
+            Tải lên JD (.docx, .txt)
+          </label>
+          <div id="dropArea" class="relative flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-200 border-gray-600 hover:border-gray-500">
+            <input id="fileInput" type="file" accept=".docx,.txt" class="hidden"/>
+            <div class="text-center text-gray-400 pointer-events-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-10 w-10 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <p><span class="font-semibold text-emerald-400">Click to upload</span> or drag and drop</p>
+              <p class="text-xs mt-1">DOCX or TXT (max 200MB)</p>
+            </div>
+          </div>
+          <p id="fileMeta" class="text-xs text-gray-500 mt-1 hidden"></p>
         </div>
       </div>
 
-      <div class="actions">
-        <button class="btn primary" onclick="evaluateJD()">Đánh giá JD</button>
-        <button class="btn ghost" onclick="clearJD()">Xóa nội dung</button>
+      <div class="flex flex-wrap gap-3">
+        <button id="btnEval" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/>
+          </svg>
+          Đánh giá JD
+        </button>
+        <button id="btnClear" class="btn-ghost">Xóa nội dung</button>
       </div>
-    </div>
+    </section>
 
-    <div id="similarBox" class="card" style="display:none">
-      <h3 class="box-title">JD tương đồng (từ lịch sử)</h3>
-      <div id="similarList" class="similar-list"></div>
-    </div>
+    <!-- Results -->
+    <section id="resultWrap" class="mt-6 hidden">
+      <div id="tabsEvalHistory" class="flex gap-2 border-b border-gray-700 pb-3 mb-4">
+        <button class="pill active" data-swap="current">Current Evaluation</button>
+        <button class="pill" data-swap="history">History</button>
+      </div>
+      <div id="currentPane" class="space-y-6"></div>
+      <div id="historyPane" class="hidden"></div>
+    </section>
+  </main>
 
-    <div id="result" class="result"></div>
-  </section>
-
-  <section id="tab2" class="tab-content">
-    <div class="card">
-      <div class="card-actions">
-        <button class="btn" onclick="exportSGrade()">Xuất Excel</button>
-        <label class="btn">
+  <!-- S-Grade tab -->
+  <section id="tab-sgrade" class="container mx-auto px-5 py-6 hidden">
+    <div class="bg-card border border-gray-700 rounded-2xl p-6 md:p-7">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <button id="btnExport" class="btn-ghost">Xuất Excel</button>
+        <label class="btn-primary cursor-pointer">
           Nhập S-Grade (Excel)
-          <input type="file" id="importSGradeFile" accept=".xlsx" onchange="importSGrade(event)" hidden />
+          <input id="importXlsx" type="file" accept=".xlsx" class="hidden"/>
         </label>
       </div>
-      <div class="table-wrap">
-        <table id="sgradeTable"></table>
+      <div class="overflow-x-auto rounded-lg border border-gray-700">
+        <table id="sgradeTable" class="min-w-full divide-y divide-gray-700"></table>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">© 2025 JD Evaluation AI • All rights reserved.</footer>
+  <footer class="mt-auto text-center text-gray-500 text-sm py-6">© 2025 JD Evaluation AI. All rights reserved.</footer>
 
-  <script id="pwcPrompt" type="text/plain">
-DÁN NỘI DUNG pwc_prompt.txt VÀO ĐÂY
-  </script>
+  <!-- Prompt placeholder (nếu cần nội dung PwC) -->
+  <script id="pwcPrompt" type="text/plain"></script>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
