@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-<rect width="64" height="64" rx="12" fill="#10b981"/>
-<path d="M20 44h24v-6H26a6 6 0 1 1 0-12h18v-6H20v6h18a6 6 0 1 1 0 12H20z" fill="#04210f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+  <rect width="128" height="128" rx="24" fill="#0b1220"/>
+  <circle cx="64" cy="64" r="40" fill="url(#g)"/>
+  <text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="44" text-anchor="middle" fill="#0b1220" font-weight="800">JD</text>
 </svg>

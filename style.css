@@ -1,92 +1,43 @@
+*{box-sizing:border-box}html,body{margin:0;padding:0}
 :root{
-  --bg:#0f172a;
-  --card:#111827;
-  --text:#d1d5db;
-  --muted:#9ca3af;
-  --accent:#10b981;
-  --accent-2:#16a34a;
-  --line:#374151;
+  --bg:#0f172a; --panel:#111827; --text:#e5e7eb; --muted:#9ca3af;
+  --border:#374151; --primary:#10b981; --primary-600:#059669;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font:16px/1.6 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--text);
-  background:var(--bg);
-}
-
-/* Layout */
-.container{max-width:1000px;margin:0 auto;padding:24px}
-.site-header{border-bottom:1px solid var(--line);background:transparent}
-.brand{margin:0;color:#fff;font-weight:800;letter-spacing:.2px}
-.subtitle{margin:.25rem 0 0;color:var(--muted);font-size:.95rem}
-.site-footer{border-top:1px solid var(--line);text-align:center;color:var(--muted);padding:24px}
-
-/* Tabs */
-.tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);margin-top:8px}
-.tab{
-  appearance:none;border:0;background:transparent;color:var(--muted);
-  padding:10px 14px;font-weight:700;border-bottom:2px solid transparent;
-  cursor:pointer;
-}
-.tab.is-active{color:var(--accent);border-color:var(--accent)}
-.panel{padding-top:18px}
-.panel[hidden]{display:none}
-
-/* Card */
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-.card-head{display:flex;gap:14px;align-items:center;margin-bottom:12px}
-.card-head .icon{font-size:28px}
+body{background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+h1{margin:0 0 4px;font-size:28px}
+.subtitle{margin:0;color:var(--muted)}
+.tabs{display:flex;gap:12px;border-bottom:1px solid var(--border);margin:18px 0 22px}
+.tab{background:none;border:0;padding:10px 12px;color:#cbd5e1;cursor:pointer;border-bottom:2px solid transparent}
+.tab.active{color:#86efac;border-color:var(--primary)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px}
+.field{margin:14px 0}
+label{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-weight:700}
+input[type="text"],select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#0b1220;color:var(--text)}
+.btn{background:var(--primary);border:0;color:#fff;font-weight:700;padding:12px 16px;border-radius:10px;cursor:pointer}
+.btn:hover{background:var(--primary-600)}
+.btn-ghost{background:#0b1220;border:1px solid var(--border)}
+.actions{display:flex;gap:10px;justify-content:flex-start;margin-top:8px}
+.dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed var(--border);border-radius:12px;padding:28px;cursor:pointer;background:#0b1220}
+.dropzone.drag{border-color:var(--primary)}
+.dz-icon{font-size:36px}
 .muted{color:var(--muted)}
-.small{font-size:.875rem}
-
-/* Form & inputs */
-.label{display:block;font-weight:700;margin:8px 0}
-.input{
-  width:100%;background:#0b1220;border:1px solid var(--line);border-radius:10px;color:#e5e7eb;
-  padding:12px 14px;outline:none;
-}
-.input:focus{border-color:#4ade80;box-shadow:0 0 0 3px rgba(16,185,129,.25)}
-.field{margin:16px 0}
-.chip{display:inline-block;font:12px/1 monospace;padding:3px 6px;border-radius:6px;margin-right:6px}
-.abctag{background:#1e3a8a;color:#93c5fd}
-.doxtag{background:#065f46;color:#6ee7b7}
-
-/* Drop zone */
-.drop{
-  background:#0b1220;border:2px dashed var(--line);border-radius:12px;padding:28px;text-align:center;position:relative
-}
-.file-input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.drop-inner{pointer-events:none}
-.drop-icon{width:42px;height:42px;fill:var(--accent);display:block;margin:0 auto 10px}
-.linklike{background:transparent;border:0;color:var(--accent);font-weight:700;cursor:pointer}
-.picked{margin-top:8px;color:#a7f3d0}
+.mt-6{margin-top:6px}.mt-12{margin-top:12px}
 .hidden{display:none}
+.pill{font:12px/1 mono;background:#1e293b;color:#93c5fd;border-radius:6px;padding:2px 6px}
+.pill-green{background:#052e2b;color:#6ee7b7}
+.section-title{margin:18px 0 8px;font-weight:800}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:10px}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+.table thead{background:#0b1220}
+.badge-pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#064e3b;color:#6ee7b7;font-weight:800}
+.center{text-align:center}
+.footer{color:var(--muted);text-align:center}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end}
+.filters{display:flex;gap:12px;flex-wrap:wrap}
+.toolbuttons{display:flex;gap:8px}
 
-/* Buttons */
-.btn{
-  appearance:none;border:1px solid var(--line);background:#1f2937;color:#e5e7eb;
-  padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;
-}
-.btn:hover{filter:brightness(1.1)}
-.btn.ghost{background:transparent}
-.btn.primary{background:var(--accent);color:#04210f;border-color:var(--accent-2)}
-.btn.primary:hover{background:var(--accent-2)}
-.actions{display:flex;gap:8px;margin-top:12px}
-.spinner{
-  width:16px;height:16px;border-radius:50%;border:2px solid #0000;border-top-color:#04210f;border-left-color:#04210f;display:inline-block;margin:-2px 8px -2px 0;animation:spin .8s linear infinite
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Table */
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
-.table{width:100%;border-collapse:collapse;min-width:640px}
-.table th,.table td{padding:12px 14px;border-bottom:1px solid var(--line)}
-.table thead th{background:#0b1220;text-align:left;color:#9ca3af;font-weight:800}
-
-/* Toolbar */
-.toolbar{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:12px}
-.filters{display:flex;gap:8px;min-width:280px}
-.tools{display:flex;gap:8px}
-.result{white-space:pre-wrap}
+.tab-pane.hidden { display: none; }
